@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Vega.Models
 {
-    public class Features
+    public class Feature
     {
     }
 }
