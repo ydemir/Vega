@@ -8,8 +8,7 @@ import { UniversalModule } from 'angular2-universal';
 import { AppComponent } from './components/app/app.component'
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 
-import { MakeService } from './services/make.service';
-import { FeatureService } from './services/feature.service';
+import { VehicleService } from './services/vehicle.service';
 
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
@@ -39,8 +38,7 @@ import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.com
         ])
     ],
     providers: [
-        MakeService,
-        FeatureService
+        VehicleService
     ]
 })
 export class AppModule {
