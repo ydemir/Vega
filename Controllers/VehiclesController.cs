@@ -4,7 +4,7 @@ using System;
 using System.Threading.Tasks;
 using Vega.Controllers.Resources;
 using Vega.Models;
-using Vega.Persistance;
+using Vega.Core;
 
 namespace Vega.Controllers
 {
@@ -57,7 +57,7 @@ namespace Vega.Controllers
             vehicle.LastUpdate = DateTime.Now;
 
             await unitOfWork.CompleteAsync();
-
+            vehicle = await repository.GetVehicle(vehicle.Id);
             var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
             return Ok(result);
         }

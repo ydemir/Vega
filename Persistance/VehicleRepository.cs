@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Vega.Core;
 using Vega.Models;
 
 namespace Vega.Persistance
@@ -16,7 +14,7 @@ namespace Vega.Persistance
         }
         public async Task<Vehicle> GetVehicle(int id,bool includeRelated=true)
         {
-            if (includeRelated!=false)
+            if (!includeRelated)
             {
                 return await context.Vehicles.FindAsync(id);
             }
