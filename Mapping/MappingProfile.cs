@@ -14,16 +14,22 @@ namespace Vega.Mapping
         {
             //Domain to API Resources
             CreateMap<Make, MakeResource>();
-            CreateMap<Model, ModelResource>();
-            CreateMap<Feature, FeatureResource>();
-            CreateMap<Vehicle, VehicleResource>()
+            CreateMap<Make, KeyValuePairResource>();
+            CreateMap<Model, KeyValuePairResource>();
+            CreateMap<Feature, KeyValuePairResource>();
+            CreateMap<Vehicle, SaveVehicleResource>()
                 .ForMember(vr => vr.Contact, opt => opt.MapFrom(v => new ContactResource
                 { Name = v.ContactName, Email = v.ContactEmail, Phone = v.ContactPhone }))
                 .ForMember(vr => vr.Features, opt => opt.MapFrom(v => v.Features.Select(vf => vf.FeatureId)));
-
+            CreateMap<Vehicle, VehicleResource>()
+                .ForMember(vr => vr.Make, opt => opt.MapFrom(v => v.Model.Make))
+                  .ForMember(vr => vr.Contact, opt => opt.MapFrom(v => new ContactResource
+                  { Name = v.ContactName, Email = v.ContactEmail, Phone = v.ContactPhone }))
+                .ForMember(vr => vr.Features, opt => opt.MapFrom(v => v.Features.Select
+                (vf => new KeyValuePairResource { Id = vf.Feature.id, Name = vf.Feature.name })));
             //API Resource to Domain
 
-            CreateMap<VehicleResource, Vehicle>()
+            CreateMap<SaveVehicleResource, Vehicle>()
                 .ForMember(v => v.Id, opt => opt.Ignore())
                 .ForMember(v => v.ContactName, opt => opt.MapFrom(vr => vr.Contact.Name))
                 .ForMember(v => v.ContactEmail, opt => opt.MapFrom(vr => vr.Contact.Email))
@@ -44,7 +50,7 @@ namespace Vega.Mapping
 
 
                     var addedFeatures = vr.Features.Where(id => v.Features.Any(f => f.FeatureId == id))
-                    .Select(id=>new VehicleFeature { FeatureId = id });
+                    .Select(id => new VehicleFeature { FeatureId = id });
                     foreach (var f in addedFeatures)
                     {
                         v.Features.Add(f);
