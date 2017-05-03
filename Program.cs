@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Vega;
 
-namespace WebApplicationBasic
+namespace Vega
 {
     public class Program
     {
