@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using Vega.Models;
 
-namespace Vega.Models
+namespace Vega.Core.Models
 {
     [Table("Vehicles")]
     public class Vehicle

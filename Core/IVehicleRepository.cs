@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Vega.Core.Models;
 using Vega.Models;
 
 namespace Vega.Core

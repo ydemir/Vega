@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Vega.Controllers.Resources;
+using Vega.Core.Models;
 using Vega.Models;
 using Vega.Persistance;
 
