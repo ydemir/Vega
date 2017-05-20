@@ -1,3 +1,5 @@
+import { ViewVehicleComponent } from './components/view-vehicle/view-vehicle';
+import { PaginationComponent } from './components/shared/pagination.component';
 import { VehicleListComponent } from './components/vehicle-list/vehicle-list';
 import * as Raven from 'raven-js';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +16,6 @@ import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.component';
-import { PaginationComponent } from './shared/pagination.component';
 
 Raven.config('https://d37bba0c459b46e0857e6e2b3aeff09b@sentry.io/155312').install();
 
@@ -28,7 +29,8 @@ Raven.config('https://d37bba0c459b46e0857e6e2b3aeff09b@sentry.io/155312').instal
         HomeComponent,
         VehicleFormComponent,
         VehicleListComponent,
-        PaginationComponent
+        ViewVehicleComponent,
+        PaginationComponent,
     ],
     imports: [
         FormsModule,
@@ -37,7 +39,8 @@ Raven.config('https://d37bba0c459b46e0857e6e2b3aeff09b@sentry.io/155312').instal
         RouterModule.forRoot([
             { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
             { path: 'vehicles/new', component: VehicleFormComponent },
-            { path: 'vehicles/:id', component: VehicleFormComponent },
+            { path: 'vehicles/edit/:id', component: VehicleFormComponent },
+            { path: 'vehicles/:id', component: ViewVehicleComponent },
             { path: 'vehicles', component: VehicleListComponent },
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
