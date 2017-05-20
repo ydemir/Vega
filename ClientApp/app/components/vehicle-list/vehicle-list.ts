@@ -44,6 +44,7 @@ export class VehicleListComponent implements OnInit {
         this.query = {
             page: 1,
             pageSize: this.PAGE_SIZE
+
         };
         this.populateVehicles();
     }
