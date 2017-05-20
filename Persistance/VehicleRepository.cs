@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Vega.Core;
 using Vega.Core.Models;
@@ -61,26 +63,26 @@ namespace Vega.Persistance
                 query = query.Where(v => v.ModelId == queryObj.ModelId.Value);
             }
 
-            if (queryObj.SortBy=="make")
+
+            var columsMap = new Dictionary<string, Expression<Func<Vehicle, object>>>()
+
             {
-                query = (queryObj.IsSortAscending) ? query.OrderBy(v => v.Model.Make.Name) :
-                    query.OrderByDescending(v => v.Model.Make.Name);
-            }
-            if (queryObj.SortBy == "model")
+                ["make"] = v => v.Model.Make.Name,
+                ["model"] = v => v.Model.Name,
+                ["contactName"] = v => v.ContactName,
+                ["id"] = v => v.Id
+            };
+
+            if (queryObj.IsSortAscending)
             {
-                query = (queryObj.IsSortAscending) ? query.OrderBy(v => v.Model.Name) :
-                    query.OrderByDescending(v => v.Model.Name);
+                query = query.OrderBy(columsMap[queryObj.SortBy]);
             }
-            if (queryObj.SortBy == "contactName")
+            else
             {
-                query = (queryObj.IsSortAscending) ? query.OrderBy(v => v.ContactName) :
-                    query.OrderByDescending(v => v.ContactName);
+                query = query.OrderByDescending(columsMap[queryObj.SortBy]);
             }
-            if (queryObj.SortBy == "id")
-            {
-                query = (queryObj.IsSortAscending) ? query.OrderBy(v => v.Id) :
-                    query.OrderByDescending(v => v.Id);
-            }
+
+        
             return await query.ToListAsync();
           
         }
