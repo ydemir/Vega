@@ -11,8 +11,7 @@ using Vega.Core.Models;
 
 namespace Vega.Controllers
 {
-    [Route("/api/vehicles/{vehicleId/photos")]
-
+    [Route("/api/vehicles/{vehicleId}/photos")]
     public class PhotosController : Controller
     {
         private readonly IHostingEnvironment host;
@@ -21,12 +20,14 @@ namespace Vega.Controllers
         private readonly IMapper mapper;
         public PhotosController(IHostingEnvironment host, IVehicleRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
         {
-            this.host = host;
-            this.repository = repository;
             this.unitOfWork = unitOfWork;
+            this.repository = repository;
+            this.host = host;
             this.mapper = mapper;
 
         }
+
+
         [HttpPost]
         public async Task<IActionResult> Upload(int vehicleId, IFormFile file)
         {
