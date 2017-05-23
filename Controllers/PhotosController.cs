@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,14 +21,19 @@ namespace Vega.Controllers
 
         private readonly IHostingEnvironment host;
         private readonly IVehicleRepository repository;
+        private readonly IPhotoRepository photoRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly PhotoSettings photoSettings;
-        public PhotosController(IHostingEnvironment host, IVehicleRepository repository, IUnitOfWork unitOfWork, IMapper mapper,IOptionsSnapshot<PhotoSettings> options)
+
+       
+
+        public PhotosController(IHostingEnvironment host, IVehicleRepository repository, IPhotoRepository photoRepository, IUnitOfWork unitOfWork, IMapper mapper,IOptionsSnapshot<PhotoSettings> options)
         {
             this.photoSettings = options.Value;
             this.unitOfWork = unitOfWork;
             this.repository = repository;
+            this.photoRepository = photoRepository;
             this.host = host;
             this.mapper = mapper;
 
@@ -76,6 +83,14 @@ namespace Vega.Controllers
             vehicle.Photos.Add(photo);
             await unitOfWork.CompleteAsync();
             return Ok(mapper.Map<Photo, PhotoResource>(photo));
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<PhotoResource>> GetPhotos(int vehicleId)
+        {
+            var photos = await photoRepository.GetPhotos(vehicleId);
+
+            return mapper.Map<IEnumerable<Photo>, IEnumerable<PhotoResource>>(photos);
         }
     }
 }

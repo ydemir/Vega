@@ -12,6 +12,7 @@
         <!-- Vehicle tab -->
         <div role="tabpanel" class="tab-pane active" id="basic">
             <h2>Basics</h2>
+
             <ul>
                 <li>Make: {{ vehicle.make.name }}</li>
                 <li>Model: {{ vehicle.model.name }}</li>
@@ -38,6 +39,7 @@
         <div role="tabpanel" class="tab-pane" id="photos">
             <h2>Photos</h2>
             <input type="file" (change)="uploadPhoto()" #fileInput>
+            <img *ngFor="let photo of photos" src="/uploads/{{photo.fileName}}" class="img-thumbnail" />
         </div>
     </div>
 </div>

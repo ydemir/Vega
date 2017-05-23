@@ -34,6 +34,9 @@
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Content Remove="ClientApp\**" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="wwwroot\uploads\12bf8e37-5162-4922-a377-343bc98adaa4" />
+  </ItemGroup>
   <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
     <Exec Command="npm install" />
